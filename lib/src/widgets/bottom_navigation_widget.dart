@@ -1,5 +1,10 @@
-import 'package:finance_app/src/pages/home.dart';
+import 'package:finance_app/src/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
+
+// Pages
+import 'package:finance_app/src/pages/config_page.dart';
+import 'package:finance_app/src/pages/history.dart';
+import 'package:finance_app/src/pages/home_page.dart';
 
 class BottomNavigationWidget extends StatefulWidget {
   BottomNavigationWidget({Key key}) : super(key: key);
@@ -9,10 +14,20 @@ class BottomNavigationWidget extends StatefulWidget {
 }
 
 class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
+
+  Widget _activePage = HomePage();
+  int _activeIndexPage = 0;
+
+  final List<Widget> _pages = <Widget>[
+    HomePage(),
+    HistoryPage(),
+    ConfigPage()
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomePage(),
+      body: _activePage,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
            border: Border(
@@ -20,8 +35,8 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
            )
         ),
         child: BottomNavigationBar(
-          currentIndex: 0,
-          backgroundColor: Color(0xFFECF0F1),
+          currentIndex: _activeIndexPage, // Current index
+          backgroundColor: CustomColors.background,
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
@@ -29,24 +44,33 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
           unselectedFontSize: 1.0,
           selectedFontSize: 1.0,
           elevation: 1.0,
-          unselectedItemColor: const Color.fromRGBO(44, 62, 80, 0.80),
-          selectedItemColor: const Color(0xFF1ABC9C),
+          unselectedItemColor: CustomColors.unselected,
+          selectedItemColor: CustomColors.main,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              title: Text("Home"),
+              title: Text('Home'),
               icon: Icon(Icons.home)
             ),
             BottomNavigationBarItem(
-              title: Text("History"),
+              title: Text('History'),
               icon: Icon(Icons.history)
             ),
             BottomNavigationBarItem(
-              title: Text("Settings"),
+              title: Text('Settings'),
               icon: Icon(Icons.settings)
             )
-          ]
+          ],
+          onTap: (int indexItem) => _setActivePage(indexItem),
         ),
       ),
     );
+  }
+
+
+  /// Set actual the active widget
+  void _setActivePage(int index) {
+    _activePage = _pages[index];
+    _activeIndexPage = index;
+    setState(() {});
   }
 }

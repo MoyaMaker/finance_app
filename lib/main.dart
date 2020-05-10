@@ -1,5 +1,5 @@
-import 'package:finance_app/src/pages/home.dart';
-import 'package:finance_app/src/widgets/bottom_navigation.dart';
+import 'package:finance_app/src/utils/custom_colors.dart';
+import 'package:finance_app/src/widgets/bottom_navigation_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        backgroundColor: Color(0xFFECF0F1),
-        scaffoldBackgroundColor: Color(0xFFECF0F1)
+        primarySwatch: CustomColors.primary,
+        backgroundColor: CustomColors.background,
+        scaffoldBackgroundColor: CustomColors.background
       ),
       home: BottomNavigationWidget()
     );
